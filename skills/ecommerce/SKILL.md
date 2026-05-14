@@ -1,3 +1,8 @@
+---
+name: ecommerce
+description: 스마트스토어/Shopify 운영 관련 모든 작업을 처리하는 이커머스 팀 스킬. 상품 기획, 상세페이지 생성, 가격 전략, 리뷰 관리, 고객 대응, 재고 계획을 통합 관리.
+---
+
 # E-Commerce Team Skill
 
 스마트스토어/Shopify 운영 관련 모든 작업을 처리하는 이커머스 팀 스킬.

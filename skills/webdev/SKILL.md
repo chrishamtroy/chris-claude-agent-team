@@ -1,3 +1,8 @@
+---
+name: webdev
+description: 웹앱/웹페이지 개발 요청 시 기획→개발→QA→배포 파이프라인을 실행하는 웹개발 팀 스킬. Next.js/Supabase/Vercel 스택 기준.
+---
+
 # Web Development Team Skill
 
 웹앱/웹페이지 개발 요청을 받으면 이 스킬을 사용하여 기획→개발→QA→배포 파이프라인을 실행합니다.

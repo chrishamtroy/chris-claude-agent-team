@@ -1,3 +1,8 @@
+---
+name: finance
+description: 한국 개인사업자(스마트스토어, Shopify, SNS 콘텐츠, 웹앱 제작)를 위한 재무 관리 팀 스킬. 송장/영수증 처리, 세금계산서 검증, 경비 정산/분류 요청 시 활성화.
+---
+
 # Finance Team Skill
 
 한국 개인사업자(스마트스토어, Shopify, SNS 콘텐츠, 웹앱 제작)를 위한 재무 관리 팀 스킬.
