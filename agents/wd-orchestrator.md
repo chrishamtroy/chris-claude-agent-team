@@ -4,7 +4,7 @@ description: 웹개발 전체 파이프라인 총괄 오케스트레이터. 기�
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: opus
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

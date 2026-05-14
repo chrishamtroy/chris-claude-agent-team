@@ -4,7 +4,7 @@ description: 경영지원 총괄 오케스트레이터. 일정/문서/KPI/법무
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: sonnet
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

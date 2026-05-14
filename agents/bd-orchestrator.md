@@ -4,7 +4,7 @@ description: 사업개발 파이프라인 총괄. 새로운 수익 기회 발굴
 tools: ["Read", "Write", "Bash", "Glob"]
 model: opus
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

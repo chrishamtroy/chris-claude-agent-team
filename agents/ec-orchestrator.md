@@ -4,7 +4,7 @@ description: 이커머스 전체 운영 총괄. 스마트스토어/Shopify 양�
 tools: ["Read", "Write", "Bash", "Glob"]
 model: opus
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

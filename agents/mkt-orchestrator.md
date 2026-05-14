@@ -4,7 +4,7 @@ description: 마케팅 CAW 시스템 총괄 오케스트레이터 — Content/Vi
 tools: ["Read", "Write", "Bash", "WebSearch"]
 model: opus
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

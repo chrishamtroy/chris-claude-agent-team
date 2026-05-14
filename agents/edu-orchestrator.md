@@ -4,7 +4,7 @@ description: 강의/교육 콘텐츠 제작 파이프라인 총괄. 클래스101
 tools: ["Read", "Write", "Edit", "Bash", "Glob"]
 model: sonnet
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

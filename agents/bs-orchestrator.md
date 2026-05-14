@@ -4,7 +4,7 @@ description: 브레인스토밍 MC/총괄 진행자. 주제 분석 후 Debater A
 tools: ["Read", "Write", "Glob"]
 model: sonnet
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>

@@ -4,7 +4,7 @@ description: 재무 총괄 오케스트레이터. 송장/영수증/경비/정산
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: opus
 memory: project
-color: purple
+color: magenta
 ---
 
 <Agent_Prompt>
