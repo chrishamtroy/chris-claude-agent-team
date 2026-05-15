@@ -94,11 +94,34 @@ Claude Code를 활용한 Spec-Driven 개발 워크플로우 및 Context Engineer
 
 ```
 Phase 1: 초기화 → CLAUDE.md 생성
-Phase 2: 기획 → spec.md, prompt_plan.md 작성
+Phase 2: 기획 → product-planning 스킬로 PRD/TRD/User Flow 생성 → spec.md, prompt_plan.md
 Phase 3: 구현 → TDD Loop 반복 (핵심)
 Phase 4: 검증 → 스펙 대조, 코드 리뷰
 Phase 5: 배포 → 보안 검토, 최종 점검
 ```
+
+### Phase 2 기획 워크플로우 (CRITICAL)
+
+신규 프로덕트/주요 기능군은 **반드시 `product-planning` 스킬을 먼저 실행**한다:
+
+```
+1. /product-planning 호출 → 6단계 기획 산출물 생성
+   └─ <project>-planning/02-prd.md
+   └─ <project>-planning/03-trd.md
+   └─ <project>-planning/04-user-flow.md
+
+2. 위 산출물을 입력으로 spec.md / prompt_plan.md 작성
+   └─ spec.md = 02-prd.md + 03-feature-spec.md 요약
+   └─ prompt_plan.md = TDD 단위로 분해한 작업 목록
+
+3. Phase 3 TDD Loop 진입
+```
+
+**스킵 조건**:
+- 단순 버그 수정 (1-2 파일)
+- 리팩토링 (기능 변경 없음)
+- 명시적으로 "빠르게" 또는 "spec 없이" 요청
+
 
 ### Think 키워드
 

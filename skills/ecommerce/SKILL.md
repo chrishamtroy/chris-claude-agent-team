@@ -29,13 +29,35 @@ description: 스마트스토어/Shopify 운영 관련 모든 작업을 처리하
 
 ## 작업 유형별 라우팅
 
-### 신규 상품 출시
+### 신규 상품 라인 / 신규 카테고리 진입 (대형)
+신규 브랜드 / 신규 카테고리 / 신규 시장(예: 일본/미국 진출) 진입 시 **product-planning 스킬을 먼저 실행**한다:
+```
+/product-planning [신규 카테고리/브랜드명]
+  └─ Stage 0: 시장 조사 (TAM/SAM/SOM, 경쟁사)
+  └─ Stage 1: JTBD, 페르소나
+  └─ Stage 2: PRD (상품 라인업 정의)
+  └─ Stage 5: GTM, North Star Metric
+       ↓
+ec-orchestrator (PRD 산출물을 입력으로 개별 상품 등록 시작)
+```
+
+### 신규 상품 출시 (단일 상품)
+기존 카테고리 내 신규 SKU 추가는 product-planning 스킵, 바로 진행:
 ```
 ec-orchestrator
   ├── ec-product-detail-gen  (상세페이지 카피 + 이미지 프롬프트)
   ├── ec-listing-optimizer   (플랫폼별 등록 최적화) → 병렬 실행
   └── ec-pricing-analyst     (가격 전략)
 ```
+
+**판단 기준**:
+| 상황 | product-planning |
+|------|------------------|
+| 신규 브랜드 런칭 | ✅ 필수 (Full) |
+| 신규 카테고리 진입 (예: 의류 → 가전) | ✅ 필수 (Lite) |
+| 신규 시장 진입 (예: KR → JP) | ✅ 필수 (Lite) |
+| 동일 카테고리 신규 SKU | ❌ 스킵 |
+| 시즌 라인업 추가 | ❌ 스킵 |
 
 ### 기존 상품 최적화
 ```

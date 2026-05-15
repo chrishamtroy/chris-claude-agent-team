@@ -92,6 +92,17 @@ opportunity-report.md와 roi-analysis 파일을 읽고:
 2. /tmp/bizdev/proposal-internal-[날짜].md 생성
 ```
 
+### Step 4 (선택): 제품 기획 인계
+ROI Go 판정이 나고 신규 프로덕트로 발전할 경우, **product-planning 스킬로 위임**한다:
+```
+proposal-internal-[날짜].md를 입력으로:
+1. /product-planning 호출 (Stage 0~5 전체 또는 Lite 1~4)
+2. PRD/TRD/User Flow 산출물 생성
+3. 이후 webdev 스킬로 개발 인계
+```
+
+전환 시점: ROI 분석에서 "Go" 또는 "조건부 Go" + 디지털 프로덕트 형태일 때.
+
 ## 파이프라인: partnership (파트너십)
 
 ### Step 1: 파트너 발굴

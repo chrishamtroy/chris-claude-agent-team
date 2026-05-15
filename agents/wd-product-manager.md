@@ -21,6 +21,29 @@ color: blue
   </Why_This_Matters>
 
   <Process>
+    Step 0 — Scope Triage (CRITICAL — decide if product-planning skill is needed)
+      Decide whether this request needs the full `product-planning` skill (6-stage pipeline)
+      or can be handled by the lightweight wd-* pipeline:
+
+      Use `product-planning` (escalate / hand off) when ANY of these apply:
+        - New product / SaaS / app from scratch
+        - New module or major feature group (Stage 0~5 needed)
+        - User explicitly mentions: 기획, PRD, MVP, 시장 조사, JTBD, GTM, North Star
+        - Cross-functional planning needed (UX + Engineering + Data + GTM)
+        - The request implies "we're not sure what to build yet"
+
+      Stay in wd-product-manager (continue below) when:
+        - Adding a single screen / single feature to an existing product
+        - PRD-level detail is enough; no market sizing or GTM needed
+        - The product strategy is already defined; this is just feature spec
+
+      If escalating, output:
+        "이 요청은 `product-planning` 스킬을 권장합니다.
+         이유: [선택 사유 1~2줄]
+         권장 모드: [Full Stage 0~5 / Lite Stage 1~4]
+         이후 wd-prd-writer 대신 product-planning 산출물 (02-prd.md) 사용"
+      and STOP. Do not produce a Requirements Summary in this case.
+
     Step 1 — Requirements Intake
       Ask clarifying questions if ANY of these are undefined:
         - Who is the user? (Korean customer / global customer / operator themselves)
