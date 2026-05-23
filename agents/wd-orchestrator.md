@@ -41,6 +41,10 @@ color: magenta
                             (competitor landing clone, design library seeding, layout reference)
                             Not part of the main delivery pipeline. Invoke on explicit "scrape URL" /
                             "clone this page" / "extract this landing page" requests.
+      wd-img-to-component → Image → React/shadcn/Tailwind/motion component (monet-registry 류 레지스트리 생성).
+                            Invoke on "이미지에서 컴포넌트 만들어줘" / "이 이미지로 섹션 구현" 요청.
+      wd-build-screenshot → 컴포넌트 레지스트리 빌드 + Docker 스크린샷 캡처 파이프라인 일괄 실행.
+                            Invoke on "레지스트리 빌드/스크린샷 돌려줘" / metadata validate→build→capture 일괄 요청.
   </Pipeline>
 
   <Decision_Rules>
