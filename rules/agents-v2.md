@@ -36,6 +36,13 @@ using-superpowers의 "1% 규칙"에 의해 매 턴 agent-router 체크가 강제
 
 독립 작업은 항상 병렬 실행. 순차 실행이 필요한 경우만 예외.
 
+**병렬 에이전트 model 기본값: `sonnet`** (토큰 비용 절감)
+- 2개 이상 에이전트를 동시 디스패치할 때 `Agent({ model: "sonnet", ... })`로 호출
+- 단일 critical 에이전트(아키텍처 결정, 보안 리뷰, 최종 판정 등)는 `opus` 유지 허용
+- 사용자가 명시적으로 `opus`/`haiku`를 지정하면 그것을 우선
+- 적용 범위: 동일 메시지에서 2개 이상의 `Agent` 툴 콜이 발생하는 모든 경우
+- 상세: [parallel-agent-model.md](parallel-agent-model.md)
+
 ## Subagents vs Agent Teams
 
 | | Subagents | Agent Teams |

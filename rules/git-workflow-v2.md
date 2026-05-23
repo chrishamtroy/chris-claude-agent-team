@@ -61,3 +61,8 @@ gh repo create your-org/my-new-project --private --clone
 ```bash
 gh repo list your-org --limit 50 --json sshUrl -q '.[].sshUrl' | xargs -n1 git clone
 ```
+
+## Auto-Trigger: `배포` / `ship`
+
+사용자가 명령형으로 "배포"·"ship"을 말하면 자동 파이프라인이 발동한다.
+**상세 규칙: `auto-trigger-deploy.md` 참조** (테스트 → 실패 시 중단 → 통과 시 add/commit/push → 결과 요약).
