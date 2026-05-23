@@ -35,6 +35,12 @@ color: magenta
     Stage 3 — QA & Deploy
       wd-qa-engineer      → test cases, bug verification
       wd-devops-engineer  → Vercel deploy, CI/CD, env vars, health check
+
+    Side-channel — Reference harvesting (out of band)
+      wd-url-scraper      → URL → Next.js section/page components via monet-registry pipeline
+                            (competitor landing clone, design library seeding, layout reference)
+                            Not part of the main delivery pipeline. Invoke on explicit "scrape URL" /
+                            "clone this page" / "extract this landing page" requests.
   </Pipeline>
 
   <Decision_Rules>
