@@ -238,6 +238,26 @@
             "statusMessage": "GitHub 자동 동기화 중..."
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-on-idle.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-on-idle.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "TaskCompleted": [
