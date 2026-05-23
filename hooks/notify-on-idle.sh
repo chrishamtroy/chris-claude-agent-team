@@ -4,6 +4,7 @@
 # macOS 알림 + 시스템 사운드를 재생한다.
 #
 # 등록: settings.json hooks.Stop / hooks.Notification
+# 알림: terminal-notifier 우선, 없으면 osascript fallback
 
 set -u
 
@@ -25,10 +26,21 @@ case "$HOOK_EVENT" in
     ;;
 esac
 
-# 시스템 사운드 비동기 재생 (블로킹 방지)
+# 시스템 사운드 비동기 재생
 /usr/bin/afplay /System/Library/Sounds/Glass.aiff >/dev/null 2>&1 &
 
-# macOS 알림 표시 (사운드 옵션은 osascript 자체 사운드 — afplay와 중복 방지 위해 미사용)
-/usr/bin/osascript -e "display notification \"${BODY//\"/\\\"}\" with title \"${TITLE}\" subtitle \"${SUBTITLE}\"" >/dev/null 2>&1 &
+# 알림: terminal-notifier 우선 (자체 번들 ID → 권한 안정적), 없으면 osascript fallback
+NOTIFIER="$(command -v terminal-notifier || true)"
+if [ -n "$NOTIFIER" ]; then
+  "$NOTIFIER" \
+    -title "$TITLE" \
+    -subtitle "$SUBTITLE" \
+    -message "$BODY" \
+    -sender com.anthropic.claude-code \
+    -group "claude-code-idle" \
+    -ignoreDnD >/dev/null 2>&1 &
+else
+  /usr/bin/osascript -e "display notification \"${BODY//\"/\\\"}\" with title \"${TITLE}\" subtitle \"${SUBTITLE}\"" >/dev/null 2>&1 &
+fi
 
 exit 0
