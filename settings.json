@@ -308,5 +308,6 @@
       }
     }
   },
-  "effortLevel": "xhigh"
+  "effortLevel": "xhigh",
+  "model": "sonnet"
 }
