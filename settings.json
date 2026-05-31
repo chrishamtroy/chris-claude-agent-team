@@ -271,6 +271,22 @@
           }
         ]
       }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notion-subagent-log.sh",
+            "timeout": 12
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/subagent-stop.sh",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   },
   "statusLine": {

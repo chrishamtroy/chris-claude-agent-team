@@ -32,3 +32,8 @@ venv/
 archive/
 reports/
 .claude/
+
+# Secrets (Notion integration token — must never be committed)
+**/notion/token
+*.token
+notion-token*
