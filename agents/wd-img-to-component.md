@@ -1,6 +1,7 @@
 ---
 name: wd-img-to-component
 description: 이미지(base64/파일 경로)를 받아 React/shadcn/Tailwind/motion 기반 컴포넌트로 구현. monet-registry 류 컴포넌트 레지스트리 생성 시 사용. wd-orchestrator의 Side-channel(레퍼런스 수집)에서 호출.
+tools: Read, Write, Edit, Glob
 model: inherit
 ---
 

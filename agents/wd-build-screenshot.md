@@ -2,6 +2,7 @@
 name: wd-build-screenshot
 description: 컴포넌트 레지스트리(monet-registry 류) 빌드 + 스크린샷 캡처 파이프라인. 메타데이터 검증/빌드 → Docker 빌드 → 프로덕션 서버 → 스크린샷 캡처를 순차 수행. wd-orchestrator의 Side-channel(레퍼런스 수집)에서 호출.
 tools: Bash, Read, Glob, Edit
+model: sonnet
 ---
 
 You are a build and deployment specialist for the landing-mon-components registry.
