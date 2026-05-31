@@ -1,13 +1,18 @@
 ---
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(python:*), Bash(go:*), Bash(cargo:*), Bash(make:*), Bash(git:*), Bash(rm:*), Read, Edit, Grep, Glob
-description: 자동 재검증 루프 (최대 3회 재시도, 실패 시 자동 수정)
+description: "[DEPRECATED → /handoff-verify] 자동 재검증 루프 (최대 5회 재시도, 실패 시 자동 수정)"
 argument-hint: [의도 설명 - handoff.md 없으면 필수] [--max-retries N] [--only build|test|lint]
 ---
+
+> ⚠️ **DEPRECATED (v5 레거시)** — 이 커맨드는 v6 `/handoff-verify`로 대체되었습니다.
+> 신규 사용은 **`/handoff-verify`** (fresh-context 서브에이전트 검증, 최대 5회 자가치유 루프, Fixable 9종)를 쓰세요.
+> 매치율(설계↔구현) 게이트가 필요하면 **`/handoff-verify --match`**.
+> 이 파일은 하위 호환을 위해 유지되며, 재시도 횟수는 `/handoff-verify`와 동일하게 **5회로 단일화**되었습니다.
 
 ## Task
 
 ### 0단계: 설정 파싱
-- `--max-retries N`: 최대 재시도 횟수 (기본: 3)
+- `--max-retries N`: 최대 재시도 횟수 (기본: 5 — `/handoff-verify`와 단일화)
 - `--only [type]`: 특정 검증만 실행
 - 나머지: 의도 설명
 

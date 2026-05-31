@@ -63,6 +63,7 @@ v5의 `/verify` 단독 커맨드에서 v6의 `/handoff-verify` 통합 커맨드�
 | `/handoff-verify --security` | 핸드오프 + 보안 검증 포함 |
 | `/handoff-verify --coverage` | 핸드오프 + 테스트 커버리지 분석 |
 | `/handoff-verify --extract` | 핸드오프 + 에러 추출/분류 모드 |
+| `/handoff-verify --match` | 핸드오프 + 설계↔구현 매치율 게이트(90%) 모드 |
 | `/handoff-verify --skip-handoff` | 핸드오프 생략 + 검증만 |
 
 ### 자동 호출
@@ -71,6 +72,7 @@ v5의 `/verify` 단독 커맨드에서 v6의 `/handoff-verify` 통합 커맨드�
 |------|------|
 | `/commit-push-pr` 실행 전 | `--once` 모드로 사전 검증 |
 | `/orchestrate` 검증 단계 | 루프 모드로 자동 실행 |
+| `webdev` Stage 2.5 (매치율 게이트) | `--match` 모드로 자동 실행 |
 
 ---
 
@@ -223,6 +225,54 @@ v5의 `/verify` 단독 커맨드에서 v6의 `/handoff-verify` 통합 커맨드�
   1. parseConfig - 정상/비정상 입력 테스트
   2. processRequest - 요청/응답 통합 테스트
   3. invalidate - 캐시 무효화 단위 테스트
+```
+
+---
+
+## Match Mode (--match) — 설계↔구현 매치율 게이트
+
+`/handoff-verify --match` 실행 시 **설계 문서 대비 구현 일치율**을 측정한다.
+bkit `gap-detector` 개념을 별도 에이전트 신설 없이 verify-agent에 흡수한 것이다.
+(개발계 한정 — 코드 산출물이 있는 작업에만 의미가 있다.)
+
+### 동작
+
+1. 설계 문서 탐색: `<project>-planning/02-prd.md`, `03-trd.md`, `spec.md`, `.claude/handoff.md`
+   - 설계 문서가 **없으면** `matchRate: N/A` 반환 (점수 날조 금지, product-planning 선행 권고)
+2. 카테고리별 명세 항목 추출 → 코드에서 실제 구현 매칭(증거: `file:line`)
+3. 가중 매치율 산출:
+
+| 카테고리 | 가중치 | 카테고리 게이트 |
+|----------|--------|----------------|
+| API 엔드포인트 | 0.35 | ≥ 90% |
+| 데이터모델 필드 | 0.30 | ≥ 90% |
+| 컴포넌트/모듈 | 0.20 | ≥ 85% |
+| 에러 처리 | 0.15 | ≥ 80% |
+
+`matchRate = round(Σ(카테고리율 × 가중치))`
+
+### 게이트
+
+- **matchRate ≥ 90% → PASS**
+- **< 90% → FAIL**: 미구현 명세를 갭으로 분류
+  - Fixable 갭(단순 필드/핸들러 누락) → 기존 5회 자가치유 루프로 자동 보완
+  - Non-Fixable 갭(아키텍처/비즈니스 로직) → 보고만
+- 각 수정 후 재측정, ≥90% 또는 재시도 소진까지 반복
+
+### 출력 형식
+
+```
+RESULT: MATCH
+MATCH_RATE: 86% (gate: 90%)
+BY_CATEGORY:
+  API 엔드포인트:  92% (12/13)
+  데이터모델:      80% (8/10)
+  컴포넌트:        90% (9/10)
+  에러 처리:       70% (7/10)
+GAPS:
+  1. [데이터모델] User.lastLoginAt — schema 미반영 (fixable)
+  2. [에러처리] 결제 실패 롤백 — 미구현 (non-fixable)
+GATE: FAIL (<90%)
 ```
 
 ---

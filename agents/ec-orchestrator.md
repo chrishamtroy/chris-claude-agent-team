@@ -2,7 +2,7 @@
 name: ec-orchestrator
 description: 이커머스 전체 운영 총괄. 스마트스토어/Shopify 양쪽 관리. 상품 기획부터 판매 최적화, 고객 대응까지 각 에이전트에 작업 분배. 이커머스 운영 관련 모든 요청의 진입점.
 tools: ["Read", "Write", "Bash", "Glob"]
-model: opus
+model: sonnet  # 라우팅·통합 위주 — sonnet 충분 (bkit식 모델 티어 분리)
 memory: project
 color: magenta
 ---

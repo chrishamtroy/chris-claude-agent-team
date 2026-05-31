@@ -51,13 +51,32 @@ Stage 1: 기획 보강 (기존 기능 추가/개선용 — Stage 0 산출물 있
 Stage 2: 개발
   wd-frontend-dev + wd-backend-dev (병렬 가능)
        ↓
-  wd-code-reviewer (APPROVE 시 Stage 3 진행)
+  wd-code-reviewer (APPROVE 시 Stage 2.5 진행)
+       ↓
+Stage 2.5: 매치율 게이트 (bkit gap-detector 흡수)
+  /handoff-verify --match → 설계(PRD/TRD)↔구현 일치율 측정
+  ├─ ≥ 90% → Stage 3 진행
+  └─ < 90% → Fixable 갭 자가치유(최대 5회), Non-Fixable 갭은 개발자 반환
 
 Stage 3: QA & 배포
   wd-qa-engineer → GO 판정 시
        ↓
   wd-devops-engineer → Vercel 배포
+
+Stage 4: 보고 (bkit Sprint report 흡수)
+  완료 리포트 산출 → <project>-planning/05-completion-report.md
+  ├─ KPI 달성도(Stage 1 정의 대비), 매치율 결과, 변경 요약
+  └─ 교훈(lessons learned) — 재사용 시 adm-report-compiler 위임 가능
+
+Stage 5: 아카이브 (bkit Sprint archive 흡수)
+  PR 머지 후 정리
+  ├─ /worktree-cleanup (worktree 사용 시)
+  ├─ handoff.md 정리, 기획 문서 최종본 보존
+  └─ /commit-push-pr --merge 연계
 ```
+
+> **생애주기**: 기획(0~1) → 개발(2) → **매치율 게이트(2.5)** → QA·배포(3) → **보고(4)** → **아카이브(5)**
+> bkit Sprint 생애주기(계획→실행→QA→보고→아카이브)를 신규 스킬 없이 webdev 파이프라인 확장으로 흡수.
 
 ## product-planning 스킬 연계 (CRITICAL)
 
@@ -84,6 +103,8 @@ Stage 3: QA & 배포
 6. **핫픽스**: 수정 → 리뷰 → 즉시 배포
 7. wd-code-reviewer가 BLOCK 판정 시 → 개발자로 반환
 8. wd-qa-engineer가 NO-GO 시 → 개발자로 반환
+9. **Stage 2.5 매치율 게이트**: 설계 문서(PRD/TRD/spec)가 있는 경우만 적용. 버그 수정·핫픽스·UI 카피 수정 등 설계 문서 없는 작업은 스킵(N/A)
+10. **Stage 4 보고·Stage 5 아카이브**: 신규 프로덕트/기능군에 권장. 버그 수정·핫픽스는 간이 커밋 메시지로 갈음 가능
 
 ## 실행 방법
 

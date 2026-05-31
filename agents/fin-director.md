@@ -2,7 +2,7 @@
 name: fin-director
 description: 재무 총괄 오케스트레이터. 송장/영수증/경비/정산/분석/보고서 요청 시 자동 라우팅. 한국 개인사업자 세무 처리(부가세, 소득세, 세금계산서) 포함.
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
-model: opus
+model: sonnet  # 라우팅·통합 위주 — sonnet 충분 (bkit식 모델 티어 분리)
 memory: project
 color: magenta
 ---

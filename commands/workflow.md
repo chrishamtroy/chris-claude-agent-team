@@ -176,8 +176,8 @@ python -m pytest 2>/dev/null
 go test ./... 2>/dev/null
 ```
 
-테스트 실패 시 → 수정 후 재실행 (최대 3회 재시도)
-3회 실패 시:
+테스트 실패 시 → 수정 후 재실행 (최대 5회 재시도 — verification-engine 자가치유 루프와 단일화)
+5회 실패 시:
 ```
 TDD 단계 실패 — 수동 개입이 필요합니다.
 

@@ -2,7 +2,7 @@
 name: bd-orchestrator
 description: 사업개발 파이프라인 총괄. 새로운 수익 기회 발굴부터 실행 계획까지 전 과정 조율. 쇼핑몰/콘텐츠/웹개발 세 수익 축 기반 시너지 사업 우선 탐색. 1인 창업자 빠른 실행 지원.
 tools: ["Read", "Write", "Bash", "Glob"]
-model: opus
+model: sonnet  # 라우팅·통합 위주 — sonnet 충분 (bkit식 모델 티어 분리)
 memory: project
 color: magenta
 ---

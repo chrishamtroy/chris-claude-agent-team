@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git:*), Bash(npm:*), Bash(pnpm:*), Bash(npx:*), Read, Write, Edit, Glob, Grep, Task
 description: 빌드/테스트/린트를 한 번에 자동 검증합니다.
-argument-hint: [--once] [--loop N] [--security] [--coverage] [--extract] [--skip-handoff]
+argument-hint: [--once] [--loop N] [--security] [--coverage] [--extract] [--match] [--skip-handoff]
 ---
 
 # /handoff-verify - 핸드오프 + 자동 검증 통합 (v6)
@@ -29,6 +29,7 @@ $ARGUMENTS에서 플래그를 파싱한다.
 | `--security` | false | 보안 리뷰 포함 |
 | `--coverage` | false | 테스트 커버리지 분석 모드 |
 | `--extract` | false | 에러 추출 모드 |
+| `--match` | false | 설계↔구현 매치율 게이트(90%) 모드. PRD/TRD/spec 대비 API·데이터모델·컴포넌트·에러처리 일치율 측정, 미달 시 Fixable 갭 자가치유 루프 |
 | `--skip-handoff` | false | handoff.md 생성 건너뛰기 (이미 있을 때) |
 | `--effort` | high | 검증 깊이: low / medium / high / max |
 | `--only` | all | 특정 단계만: build / test / lint / type |

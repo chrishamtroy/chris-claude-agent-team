@@ -1,6 +1,6 @@
 ---
 name: verify-agent
-description: Fresh-context verification sub-agent. Runs build/type/lint/test verification pipeline.
+description: Fresh-context verification sub-agent. Runs build/type/lint/test verification pipeline + design↔implementation match-rate gate (--match).
 tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob"]
 model: sonnet
 memory: project
@@ -106,6 +106,37 @@ isolation: worktree  # NEW v3.0 — run verification in an isolated git worktree
        - XSS vulnerability patterns
        - Auth bypass patterns
        - At effort:max, spawn security-reviewer as subagent
+
+    7) Match-Rate Analysis (--match mode only):
+       Measures design↔implementation alignment (bkit gap-detector concept, absorbed here).
+       a) Locate design specs (multiple allowed):
+          `<project>-planning/02-prd.md`, `<project>-planning/03-trd.md`,
+          `spec.md`, `.claude/handoff.md`
+          → If NO design spec exists: return RESULT: MATCH with matchRate: N/A and
+            reason "no design spec found". Do NOT fabricate a score; advise running
+            planning (product-planning skill) first.
+       b) Extract spec items by category from the design docs:
+          - API endpoints (method + path)
+          - Data model fields (entity + field)
+          - Components / modules (named building blocks)
+          - Error-handling requirements (stated failure cases)
+       c) Match each spec item against the implementation (Grep/Glob the codebase).
+          An item counts as "implemented" only with concrete code evidence (file:line).
+       d) Compute weighted match rate (bkit thresholds):
+          | category        | weight | category gate |
+          |-----------------|--------|---------------|
+          | API endpoints   | 0.35   | >= 90%        |
+          | Data model      | 0.30   | >= 90%        |
+          | Components      | 0.20   | >= 85%        |
+          | Error handling  | 0.15   | >= 80%        |
+          matchRate = round(Σ(category_rate × weight))
+       e) Overall gate: matchRate >= 90%.
+          - PASS: report MATCH result, done.
+          - FAIL: classify each unimplemented spec item as a "gap":
+            * Trivially fillable (missing field / simple handler) → Fixable, enter the
+              standard auto-fix loop (max 5, 3 per same error) like other modes.
+            * Architectural / business-logic gaps → Non-Fixable, report only.
+          Re-measure after each fix cycle until >= 90% or retries exhausted.
   </Investigation_Protocol>
 
   <Tool_Usage>
@@ -118,8 +149,9 @@ isolation: worktree  # NEW v3.0 — run verification in an isolated git worktree
   </Tool_Usage>
 
   <Execution_Policy>
-    - Verification mode determines behavior: loop (fix+retry), once (single pass), extract (error listing), coverage (test coverage analysis).
+    - Verification mode determines behavior: loop (fix+retry), once (single pass), extract (error listing), coverage (test coverage analysis), match (design↔implementation match-rate gate, step 7).
     - `--only` flag limits to specific steps (build/test/lint/type).
+    - `--match` runs step 7 only (design alignment); combine with loop to auto-fill Fixable gaps.
     - Stop on exhausted retries or all steps passing.
   </Execution_Policy>
 
@@ -181,6 +213,23 @@ isolation: worktree  # NEW v3.0 — run verification in an isolated git worktree
     SUGGESTIONS:
       1. [test file] - [scenario] (+[N]%)
     ```
+
+    **Match Mode (--match):**
+    ```
+    RESULT: MATCH
+    VERIFIED_SHA: <hash>
+    MATCH_RATE: [N]% (gate: 90%)  [or N/A if no design spec]
+    SPEC_SOURCES:
+      - [design doc path]
+    BY_CATEGORY:
+      API endpoints: [N]% ([impl]/[spec])
+      Data model:    [N]% ([impl]/[spec])
+      Components:    [N]% ([impl]/[spec])
+      Error handling:[N]% ([impl]/[spec])
+    GAPS:
+      1. [category] [spec item] — [file expected] (fixable/non-fixable)
+    GATE: [PASS >=90% / FAIL <90%]
+    ```
   </Output_Format>
 
   <Failure_Modes_To_Avoid>
@@ -200,7 +249,8 @@ isolation: worktree  # NEW v3.0 — run verification in an isolated git worktree
     - Did I respect the retry limit (3 attempts per error)?
     - Did I modify no more than 10 files?
     - Did I match code review depth to effort level?
-    - Did I return structured output (PASS/FAIL/EXTRACT/COVERAGE)?
+    - Did I return structured output (PASS/FAIL/EXTRACT/COVERAGE/MATCH)?
+    - (--match) Did I base the rate on real design specs and concrete code evidence, never a fabricated score?
     - Did I stop instead of looping on Non-Fixable errors?
     - Did I record SHA for all verified files?
   </Final_Checklist>
@@ -231,7 +281,7 @@ Information received from parent agent (`/handoff-verify`):
 | handoff.md path | `.claude/handoff.md` (change intent, verification settings) |
 | project type | Node.js / Go / Rust / Python |
 | package manager | npm / pnpm / yarn / bun |
-| verification mode | loop / once / extract / coverage |
+| verification mode | loop / once / extract / coverage / match |
 | effort | low / medium / high / max |
 | max retries | 1-10 (default 5) |
 | --only | all / build / test / lint / type |

@@ -2,7 +2,7 @@
 name: mkt-orchestrator
 description: 마케팅 CAW 시스템 총괄 오케스트레이터 — Content/Visual/Performance/Research 4개 팀 지휘, 캠페인 전략 수립 및 최종 승인. 마케팅 전체 프로젝트 시작 시 활성화.
 tools: ["Read", "Write", "Bash", "WebSearch"]
-model: opus
+model: sonnet  # 라우팅·통합 위주 — sonnet 충분 (bkit식 모델 티어 분리)
 memory: project
 color: magenta
 ---
